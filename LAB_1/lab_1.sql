@@ -17,3 +17,5 @@ INSERT INTO `desc` (`id`, `name`, `r_type`) VALUES
 
 
 SELECT * FROM `desc`;
+
+-- Продолжать здесь
