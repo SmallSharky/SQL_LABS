@@ -43,20 +43,20 @@ INSERT INTO `prof` (`id`, `p_id`, `date`) VALUES
 ('2', '1', '2017-08-08 00:00:00');
 SELECT * FROM `prof`;
   
-
+DELIMITER //
 CREATE PROCEDURE `p2` ()
 LANGUAGE SQL
 READS SQL DATA
 MODIFIES SQL DATA
 SQL SECURITY DEFINER
 BEGIN
-	DELETE FROM @ret;
+	DELETE FROM ret;
 	INSERT INTO ret (`id`) 
        		SELECT id FROM `desc`;	
-	DECLARE cursor CURSOR FOR SELECT id FROM `ret`;       /*Объявление курсора и его заполнение */  
-	DECLARE  CONTINUE HANDLER FOR NOT FOUND SET @ex=1;         /*Что делать, когда больше нет записей*/  
+	DECLARE cursor CURSOR FOR SELECT id FROM `ret`;       
+	DECLARE  CONTINUE HANDLER FOR NOT FOUND SET @ex=1;     
 	SET @ex=0;
-	OPEN cursor;                                /*Открыть курсор*/  
+	OPEN cursor;                                  
 		WHILE @ex=0 DO
 			SET @n=0;
 			SET @average=NULL;
@@ -83,9 +83,8 @@ BEGIN
 				UPDATE `ret` SET name=@d_name, a=@average WHERE id=@d_id;
 			END IF;
 		END WHILE;
-	CLOSE cursor;                               /*Закрыть курсор*/  
-	
-	SELECT * FROM ret;
+	CLOSE cursor;                                 
+	SELECT * FROM `ret`;
 END//  
 
 DELIMITER ;
